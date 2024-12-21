@@ -17,14 +17,23 @@ public:
     void processInput();
 
     // access glfw window
-    inline GLFWwindow * getWindow()
+    inline GLFWwindow * getWindow() const
     {
         return m_window;
+    }
+
+    // access mixValue
+    inline float getMixValue() const
+    {
+        return m_mixValue;
     }
 
 private:
     // glfw window
     GLFWwindow * m_window;
+
+    // stores how much we're seeing of either texture
+    float m_mixValue;
 };
 
 #endif

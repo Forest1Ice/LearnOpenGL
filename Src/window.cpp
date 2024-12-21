@@ -1,6 +1,7 @@
 #include "window.h"
 
 Window::Window(const char * title, int scr_width, int scr_height)
+    : m_mixValue{0.2f}
 {
     // glfw: initialize and configure
     // ------------------------------
@@ -29,7 +30,27 @@ Window::Window(const char * title, int scr_width, int scr_height)
 void Window::processInput()
 {
     if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    {
         glfwSetWindowShouldClose(m_window, true);
+    }
+
+    if (glfwGetKey(m_window, GLFW_KEY_UP) == GLFW_PRESS)
+    {
+        m_mixValue += 0.001f;
+        if (m_mixValue > 1.0f)
+        {
+            m_mixValue = 1.0f;
+        }
+    }
+
+    if (glfwGetKey(m_window, GLFW_KEY_DOWN) == GLFW_PRESS)
+    {
+        m_mixValue -= 0.001f;
+        if (m_mixValue < 0.0f)
+        {
+            m_mixValue = 0.0f;
+        }
+    }
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
