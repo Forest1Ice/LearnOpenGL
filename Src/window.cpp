@@ -1,7 +1,7 @@
 #include "window.h"
 
 Window::Window(const char * title, int scr_width, int scr_height)
-    : m_mixValue{0.2f}
+    : m_width{scr_width}, m_height{scr_height}, m_mixValue{0.2f}
 {
     // glfw: initialize and configure
     // ------------------------------

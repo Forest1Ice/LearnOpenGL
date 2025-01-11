@@ -1,0 +1,4 @@
+add_subdirectory(Coordinate1)
+add_subdirectory(Coordinate2)
+add_subdirectory(Coordinate3)
+add_subdirectory(Coordinate4)
