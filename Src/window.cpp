@@ -1,7 +1,13 @@
 #include "window.h"
 
+// Camera
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+static float lastX = SCR_WIDTH / 2.0f;
+static float lastY = SCR_HEIGHT / 2.0f;
+static bool firstMouse = true;
+
 Window::Window(const char * title, int scr_width, int scr_height)
-    : m_width{scr_width}, m_height{scr_height}, m_mixValue{0.2f}
+    : m_width{scr_width}, m_height{scr_height}, m_mixValue{0.2f}, m_deltaTime{0.0f}
 {
     // glfw: initialize and configure
     // ------------------------------
@@ -25,6 +31,8 @@ Window::Window(const char * title, int scr_width, int scr_height)
     }
     glfwMakeContextCurrent(m_window);
     glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+    glfwSetCursorPosCallback(m_window, mouse_callback);
+    glfwSetScrollCallback(m_window, scroll_callback);
 }
 
 void Window::processInput()
@@ -51,9 +59,52 @@ void Window::processInput()
             m_mixValue = 0.0f;
         }
     }
+
+    if(glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS)
+    {
+        camera.processKeyBoard(FORWARD, m_deltaTime);
+    }
+    if(glfwGetKey(m_window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        camera.processKeyBoard(BACKWARD, m_deltaTime);
+    }
+    if(glfwGetKey(m_window, GLFW_KEY_A) == GLFW_PRESS)
+    {
+        camera.processKeyBoard(LEFT, m_deltaTime);
+    }
+    if(glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS)
+    {
+        camera.processKeyBoard(RIGHT, m_deltaTime);
+    }
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
+}
+
+void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn)
+{
+    float xpos = static_cast<float>(xPosIn);
+    float ypos = static_cast<float>(yPosIn);
+
+    if (firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+
+    float xoffset = xpos - lastX;
+    float yoffset = ypos - lastY;
+
+    lastX = xpos;
+    lastY = ypos;
+
+    camera.processMouseMovement(xoffset, yoffset);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    camera.processMouseScroll(static_cast<float>(yoffset));
 }

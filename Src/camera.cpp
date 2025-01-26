@@ -47,7 +47,7 @@ void Camera::processMouseScroll(float yoffset)
 {
     m_zoom -= yoffset;
     m_zoom = glm::max(1.0f, m_zoom);
-    m_zoom = glm::min(45.0f, m_zoom);
+    m_zoom = glm::min(90.0f, m_zoom);
 }
 
 void Camera::updateCameraVectors()

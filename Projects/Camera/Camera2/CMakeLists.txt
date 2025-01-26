@@ -1,4 +1,4 @@
-set(PROJECT_NAME Texture4)
+set(PROJECT_NAME Camera2)
 project(${PROJECT_NAME})
 
 set(SRC ${CMAKE_SOURCE_DIR}/Src)

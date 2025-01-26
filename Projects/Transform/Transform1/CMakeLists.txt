@@ -2,12 +2,12 @@ set(PROJECT_NAME Transform1)
 project(${PROJECT_NAME})
 
 set(SRC ${CMAKE_SOURCE_DIR}/Src)
+file(GLOB SRC_FILES "${SRC}/*.cpp")
 
 add_executable(
     ${PROJECT_NAME}
     main.cpp
-    ${SRC}/window.cpp
-    ${SRC}/shader.cpp
+    ${SRC_FILES}
 )
 
 # Set OpenGL dependecies

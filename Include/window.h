@@ -2,17 +2,27 @@
 #define WINDOW_H
 
 #include <glfw/glfw3.h>
+#include "camera.h"
 
 #include <iostream>
 
+// settings
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
+
+// camera declaration
+extern Camera camera;
+
 // utility function
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 class Window
 {
 public:
     Window() = delete;
-    explicit Window(const char * title, int width = 800, int height = 600);
+    Window(const char * title, int scr_width = SCR_WIDTH, int scr_height = SCR_HEIGHT);
 
     // process all input
     void processInput();
@@ -21,12 +31,6 @@ public:
     inline GLFWwindow * getWindow() const
     {
         return m_window;
-    }
-
-    // access mixValue
-    inline float getMixValue() const
-    {
-        return m_mixValue;
     }
 
     // access screen width
@@ -41,6 +45,18 @@ public:
         return m_height;
     }
 
+    // access mixValue
+    inline float getMixValue() const
+    {
+        return m_mixValue;
+    }
+
+    // set deltaTime
+    inline void setDeltaTime(float deltaTime)
+    {
+        m_deltaTime = deltaTime;
+    }
+
 private:
     // glfw window
     GLFWwindow * m_window;
@@ -51,6 +67,9 @@ private:
 
     // stores how much we're seeing of either texture
     float m_mixValue;
+
+    // timing
+    float m_deltaTime;
 };
 
 #endif
