@@ -177,7 +177,6 @@ int main()
     shader.setInt("texture2", 1);
 
     GLFWwindow * glfwWindow = window.getWindow();
-    float lastFrame = 0.0f;
 
     while (!glfwWindowShouldClose(glfwWindow))
     {
